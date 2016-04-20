@@ -39,7 +39,7 @@ while true; do
         f=$(tempfile)
 
         # output a jpg file with relativelyt low quailty so it is small
-        fswebcam --jpeg 40 "$f"
+        fswebcam --no-banner --jpeg 40 "$f"
 
         sudo cp "$f" "${sfiles[step]}"
 
