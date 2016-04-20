@@ -1,0 +1,11 @@
+[Unit]
+Description=plantWAP live image updater service
+
+[Service]
+Type=simple
+User=root
+ExecStart=/etc/plantwap/snapd.sh
+
+[Install]
+WantedBy=multi-user.target
+

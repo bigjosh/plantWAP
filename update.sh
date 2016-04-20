@@ -10,6 +10,7 @@ sudo service isc-dhcp-server stop
 sudo service hostapd stop
 sudo service apache2 stop
 sudo service squid3 stop
+sudo service snapd stop
 
 #update and changes, typically run after a "git pull"
 
@@ -42,10 +43,14 @@ sudo chown -c proxy /var/www/html/images/
 sudo cp "$sdir"/* "$idir"
 chmod a+r "$idir"/*
 
+#enable live webcam updater (or reinitialize the service in case we changed the service file)
+sudo systemctl enable /etc/plantwap/snapd.service
+
 #set all our services to run on boot up
 sudo service isc-dhcp-server start
 sudo service hostapd start
 sudo service apache2 start
 sudo service squid3 start
+sudo service snapd start
 
 echo All done! We should now be serving plants!

@@ -5,8 +5,7 @@
 # live-05.jpg. The "05" can be anything. The number of placehold images
 # controls how many live images will be kept 
 
-set -x
-set -e
+echo Starting live webcam capture service
 
 #number of minutes between images
 mwait=1
@@ -16,6 +15,8 @@ idir="/var/www/html/images"
 
 # note that livemask should never be in quotes or it will not expand (argh!)
 livemask="$idir/live-*"
+
+echo "Updating every $mwait minutes to $livemask"
 
 step=0 
 
