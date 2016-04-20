@@ -11,7 +11,6 @@ sudo service hostapd stop
 sudo service apache2 stop
 sudo service squid3 stop
 
-
 #update and changes, typically run after a "git pull"
 
 #copy out files where they all go
@@ -19,6 +18,8 @@ sudo cp -r root/etc/* /etc/
  
 #make the squid rewrite helper executable
 sudo chmod +x /etc/plantwap/sqwrite.sh
+sudo chmod +x /etc/plantwap/snapd.sh
+
 
 #source for images to inject
 sdir="/etc/plantwap/images"
