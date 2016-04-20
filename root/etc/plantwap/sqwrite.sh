@@ -19,42 +19,24 @@ function log(){
     echo "$now:" "$@" >>"$logfile"
 }
 
-
-#soruce for images to inject
-sdir="/etc/plantwap/images"
-
-#location to cache resized images
+#location to of images to inject
 idir="/var/www/html/images"
 
-log "starting sdir=" "$sdir" " idir=" "$idir"  
+log "starting idir=" "$idir"  
 
 if [ ! -d "$idir" ]; then
 	# make directory for generated images, fails benignly if race condition
-	sudo mkdir "$idir" 
+    echo "errro idir missing"
+    return 1
 fi
 
 #get the soruce files
-sfiles=( $(find "$sdir" -type f) )
+sfiles=( $(find "$idir" -type f) )
 
 #how many source images do we have?
 scount=${#sfiles[@]}
 
 log "found " $scount " source images" 
-
-# clear directory
-rm -f $idir/*
-
-#copy the source images to the web dir and set permisions
-
-for i in "${sfiles[@]}"
-do
-    iname=$(basename "$i")
-    cp "$i" "$idir/$iname" >>"$logfile" 2>>"$logfile"
-    # make sure apache can read the file
-    chmod a+r "$idir/$iname"  >>"$logfile" 2>>"$logfile"
-    
-done    
-
 
 #list of file extentions to redirect - all lower and each surrounded by spaces
 redirlist=" gif jpg jpeg png ping webp "

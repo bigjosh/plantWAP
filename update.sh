@@ -17,10 +17,27 @@ sudo cp -r root/etc/* /etc/
 #make the squid rewrite helper executable
 sudo chmod +x /etc/plantwap/sqwrite.sh
 
-#give the rewriter permision to add images to the local web server dir
+#source for images to inject
+sdir="/etc/plantwap/images"
+
+#location to cache resized images
+idir="/var/www/html/images"
+
+if [ ! -d "$idir" ]; then
+	# make directory for generated images, fails benignly if race condition
+	sudo mkdir "$idir" 
+fi
+
+#give the rewriter permision to images in the local web server dir
 sudo mkdir /var/www/html/images/
 sudo chown -c proxy /var/www/html/images/
-#note that sqwrite.sh will copy images into /var/www/html/images/
+
+# clear anything left in directory
+rm -f $idir/*
+
+#copy files & set permisisons
+sudo cp "$sdir"/* "$idir"/*
+chmod a+r "$idir"/*
 
 #set all our services to run on boot up
 sudo service isc-dhcp-server start
