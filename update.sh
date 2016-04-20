@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -x
+set -e
+
 echo "Stopping any running services (this could take a minute)..."
 
 #set all our services to run on boot up
@@ -26,17 +29,16 @@ idir="/var/www/html/images"
 if [ ! -d "$idir" ]; then
 	# make directory for generated images, fails benignly if race condition
 	sudo mkdir "$idir" 
+else 
+	# directory exists, so clear contents
+	rm -f $idir/*	
 fi
 
 #give the rewriter permision to images in the local web server dir
-sudo mkdir /var/www/html/images/
 sudo chown -c proxy /var/www/html/images/
 
-# clear anything left in directory
-rm -f $idir/*
-
 #copy files & set permisisons
-sudo cp "$sdir"/* "$idir"/*
+sudo cp "$sdir"/* "$idir"
 chmod a+r "$idir"/*
 
 #set all our services to run on boot up
