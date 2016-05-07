@@ -85,16 +85,19 @@ You can replace the images in `/etc/plantwap/images` with anything you want (doe
 
 * If you use small or low res images, they will look crappy when they are scaled to repalce large source images
 * If you use large and hi res images, they will take longer to resize so there will be a longer delay the first time an image is injected at a given size
+* Any images with names that start with `live-` will be replaced with live images. These should be the default images to show when the box is first powered up and not enough snapshots have been aquired yet. 
 
+Live images are periodically captured from the attached webcam. The interval between snapshots is set as in `snapd.sh` as `mwait` and is specified in minutes. The snapshots will automatically rotate though the `live-` files. 
 
-After you change the images, you will should clear the cache and restart the server by entering...
+After you change the images or the snapshot interval, you will should clear the cache and restart the server by entering...
 
 ```
-sudo rm /var/www/html/images/*
-sudo squid3 -k reconfigure
+sudo /etc/plantWAP/update.sh
 ```
 
 ## Theory of Operation
+
+#### Proxy
 
 1. A standard `hostapd` manages the Wifi access point
 2. An `iptables` redirect sends all `http` connections to a local `squid3` server 
@@ -106,6 +109,17 @@ sudo squid3 -k reconfigure
 7. We again use `graphics-magick` to resize the selected repalcement to match the original and save the result in `/var/www/html/images` with a file based on which repalcement images we used and the size. Note that this step can cause some delay if the replacement image is large, but hopefully we only need to resize once per replacement image at a given size. 
 8. The script returns the path to the newly generated resized replacement image on the local `appache2` http server on port 81.
 9. `squid3` returns the injected image to the browser!
+
+#### Live snapshots
+
+A backgorund task called `snapd.sh` is always running as service. 
+
+It is usually sleeping for a time speficied as `mwait`. When it wakes up, it...
+
+1. Looks in the apache images directory to see if there are any `live-` image files. If not, it goes back to sleep. 
+2. takes a snapshot from the webcam to a temp file using `fswebcam`.
+3. Copies the new snapshot into the the web server images directory, overwriting one of the `live-` files.
+4. It roates to the next  `live-` file for the next pass, and restarts when it gets to the last one.
 
 ## Some Tricky Parts
 

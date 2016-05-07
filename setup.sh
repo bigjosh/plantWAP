@@ -1,3 +1,4 @@
+#!/bin/bash
 sudo apt-get -y update
 sudo apt-get -y upgrade
 
@@ -7,6 +8,7 @@ sudo apt-get -y install apache2
 sudo apt-get -y install graphicsmagick
 sudo apt-get -y install hostapd
 sudo apt-get -y install isc-dhcp-server
+sudo apt-get -y install fswebcam
 
 #set all our services to run on boot up
 sudo update-rc.d isc-dhcp-server enable
