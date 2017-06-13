@@ -5,12 +5,12 @@ Transparently injects nature into your browsing experience
 
 ### Wall Street Journal 
 
-![WSJ](images/thumbs/WSJ for Plants.png)
+![WSJ](/images/thumbs/WSJ for Plants.png)
 
 
 ### New York Times
 
-![NYT](images/thumbs/NYT for Plants.PNG)
+![NYT](/images/thumbs/NYT for Plants.PNG)
 
 (full size examples and more [here](/images))
 
