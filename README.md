@@ -5,7 +5,7 @@ Transparently injects nature into your browsing experience
 
 ### Wall Street Journal 
 
-![WSJ](/images/thumbs/WSJ for Plants.png)
+![WSJ](/images/thumbs/WSJ%20for%20Plants.png)
 
 
 ### New York Times
