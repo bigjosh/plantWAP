@@ -10,7 +10,7 @@ Transparently injects nature into your browsing experience
 
 ### New York Times
 
-![NYT](/images/thumbs/NYT for Plants.PNG)
+![NYT](/images/thumbs/NYT%20for%20Plants.PNG)
 
 (full size examples and more [here](/images))
 
